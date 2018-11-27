@@ -25,7 +25,7 @@ public class ModuleD {
 	
 	public ArrayList<Entry> updateData(ArrayList<Entry> data, int index,
 			String name, String number, String filename) {
-		data.set(index+1, new Entry(name, number));
+		data.set(index, new Entry(name, number));
 		f.displayData(data);
 		g.updateData(filename, data);
 		return data;
