@@ -40,6 +40,9 @@ public class ModuleFTests {
             ", 777222\n6 Frank, 123456789789\n";
 
         f.displayData(testData);
-        assertEquals(expectedOutput, outContent.toString());
+        assertEquals(
+            expectedOutput.replaceAll("\\r?\\n|\\r", ""),
+            outContent.toString().replaceAll("\\r?\\n|\\r", "")
+        );
     }
 }
