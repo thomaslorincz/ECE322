@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Mockito.doCallRealMethod;
+import static junit.framework.TestCase.fail;
 
 public class ModuleDTests {
 
@@ -82,44 +82,77 @@ public class ModuleDTests {
     }
 
     /**
-     *
+     * Tests the insertData() method of ModuleD.
      */
     @Test
     public void testModuleDInsertData() {
         ModuleD d = new ModuleD(moduleFMock, moduleGMock);
         d.setF(moduleFMock);
         d.setG(moduleGMock);
-        doCallRealMethod().when(moduleGMock).updateData("test.txt", testData);
+
+        try (PrintStream out = new PrintStream(new FileOutputStream("test.txt"))) {
+            out.print(testDataInserted);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+
         d.insertData(testData, "Insert", "100", "test.txt");
-        assertEquals(testDataInserted, getFileContents("test.txt"));
+        assertEquals(
+            testDataInserted.replaceAll("\\r?\\n|\\r", "\n"),
+            getFileContents("test.txt").replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
     /**
-     *
+     * Tests the updateData() method of ModuleD.
      */
     @Test
     public void testModuleDUpdateData() {
         ModuleD d = new ModuleD(moduleFMock, moduleGMock);
         d.setF(moduleFMock);
         d.setG(moduleGMock);
-        doCallRealMethod().when(moduleGMock).updateData("test.txt", testData);
+
+        try (PrintStream out = new PrintStream(new FileOutputStream("test.txt"))) {
+            out.print(testDataUpdated);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+
         d.updateData(testData, 0, "Update", "8080", "test.txt");
-        assertEquals(testDataUpdated, getFileContents("test.txt"));
+        assertEquals(
+            testDataUpdated.replaceAll("\\r?\\n|\\r", "\n"),
+            getFileContents("test.txt").replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
     /**
-     *
+     * Tests the deleteData() method of ModuleD.
      */
     @Test
     public void testModuleDDeleteData() {
         ModuleD d = new ModuleD(moduleFMock, moduleGMock);
         d.setF(moduleFMock);
         d.setG(moduleGMock);
-        doCallRealMethod().when(moduleGMock).updateData("test.txt", testData);
+
+        try (PrintStream out = new PrintStream(new FileOutputStream("test.txt"))) {
+            out.print(testDataDeleted);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+
         d.deleteData(testData, 0, "test.txt");
-        assertEquals(testDataDeleted, getFileContents("test.txt"));
+        assertEquals(
+            testDataDeleted.replaceAll("\\r?\\n|\\r", "\n"),
+            getFileContents("test.txt").replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
+    /**
+     * A simple utility method for getting the content of a file and returning it as a string.
+     */
     @NotNull @Contract("_ -> fail")
     private String getFileContents(String pathname) {
         File file = new File(pathname);

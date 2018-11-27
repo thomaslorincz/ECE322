@@ -80,7 +80,7 @@ public class ModuleGTests {
     }
 
     /**
-     *
+     * Uses a mock ModuleG that throws an IOException when updateData() is called.
      */
     @Test(expected = IOException.class)
     public void testModuleGIOException() {
