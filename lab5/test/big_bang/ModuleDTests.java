@@ -4,6 +4,8 @@ import data.Entry;
 import modules.ModuleD;
 import modules.ModuleF;
 import modules.ModuleG;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -99,6 +101,7 @@ public class ModuleDTests {
         assertEquals(testDataDeleted, getFileContents("test.txt"));
     }
 
+    @NotNull @Contract("_ -> new")
     private String getFileContents(String pathname) {
         File file = new File(pathname);
         byte[] data = new byte[0];
