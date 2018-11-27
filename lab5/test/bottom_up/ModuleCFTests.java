@@ -4,23 +4,25 @@ import data.Entry;
 import modules.ModuleC;
 import modules.ModuleF;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class ModuleCTests {
+public class ModuleCFTests {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     private ArrayList<Entry> testData;
     private ArrayList<Entry> sortedTestData;
 
     @Before
     public void setUp() {
+        outContent.reset(); // Reset output stream before each test
+
         testData = new ArrayList<>();
         testData.add(new Entry("Jeremy", "1234"));
         testData.add(new Entry("Morris", "0623"));
@@ -39,10 +41,20 @@ public class ModuleCTests {
     }
 
     @Test
-    public void testModuleCWithModuleF() {
+    public void testModuleC() {
         ModuleF f = new ModuleF();
+        f.setOutputStream(new PrintStream(outContent));
         ModuleC c = new ModuleC(f);
         c.setF(f);
+
         assertEquals(c.sortData(testData).toString(), sortedTestData.toString());
+
+        String expectedOutput  = "Current Data:\n1 Frank, 123456789789\n2 JJJ, 1234\n3 Jeremy, 1234\n4 Morris, 0623\n" +
+            "5 Quinn, 3847\n6 Thomas, 777222\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class ModuleDTests {
+public class ModuleDFGTests {
 
     private ArrayList<Entry> testData;
     private String testDataInserted;

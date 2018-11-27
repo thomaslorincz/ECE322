@@ -4,31 +4,20 @@ import data.Entry;
 import modules.ModuleG;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 import java.io.*;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
-import static org.mockito.Mockito.doThrow;
 
 public class ModuleGTests {
-
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
     private ArrayList<Entry> testData;
-
-    @Mock
-    private ModuleG moduleGMock;
 
     @Before
     public void setUp() {
@@ -77,14 +66,5 @@ public class ModuleGTests {
             e.printStackTrace();
             fail();
         }
-    }
-
-    /**
-     * Uses a mock ModuleG that throws an IOException when updateData() is called.
-     */
-    @Test(expected = IOException.class)
-    public void testModuleGIOException() {
-        doThrow(IOException.class).when(moduleGMock).updateData("test.txt", testData);
-        moduleGMock.updateData("test.txt", testData);
     }
 }

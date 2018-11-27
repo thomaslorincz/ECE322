@@ -19,16 +19,10 @@ import static org.mockito.Mockito.doThrow;
 
 public class ModuleGTests {
 
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
-
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
     private ArrayList<Entry> testData;
-
-    @Mock
-    private ModuleG moduleGMock;
 
     @Before
     public void setUp() {
@@ -77,14 +71,5 @@ public class ModuleGTests {
             e.printStackTrace();
             fail();
         }
-    }
-
-    /**
-     *
-     */
-    @Test(expected = IOException.class)
-    public void testModuleGIOException() {
-        doThrow(IOException.class).when(moduleGMock).updateData("test.txt", testData);
-        moduleGMock.updateData("test.txt", testData);
     }
 }

@@ -41,8 +41,8 @@ public class ModuleFTests {
 
         f.displayData(testData);
         assertEquals(
-            expectedOutput.replaceAll("\\r?\\n|\\r", ""),
-            outContent.toString().replaceAll("\\r?\\n|\\r", "")
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
         );
     }
 }

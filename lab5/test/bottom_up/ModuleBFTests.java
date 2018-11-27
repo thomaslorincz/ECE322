@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.doThrow;
 
-public class ModuleBTests {
+public class ModuleBFTests {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -49,15 +49,10 @@ public class ModuleBTests {
         assertEquals(b.loadFile("test.txt").toString(), testData.toString());
     }
 
+    // TODO:
     @Test(expected = FileNotFoundException.class)
     public void testModuleBFileNotFoundException() {
         doThrow(FileNotFoundException.class).when(moduleBMock).loadFile("test.txt");
-        moduleBMock.loadFile("test.txt");
-    }
-
-    @Test(expected = IOException.class)
-    public void testModuleBIOException() {
-        doThrow(IOException.class).when(moduleBMock).loadFile("test.txt");
         moduleBMock.loadFile("test.txt");
     }
 }

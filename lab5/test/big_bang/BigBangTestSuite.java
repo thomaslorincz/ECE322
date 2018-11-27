@@ -6,7 +6,6 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-    EntryTests.class,
     ModuleBTests.class,
     ModuleCTests.class,
     ModuleDTests.class,

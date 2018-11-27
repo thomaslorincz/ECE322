@@ -1,6 +1,5 @@
-package bottom_up;
+package data;
 
-import data.Entry;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

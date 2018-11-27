@@ -6,14 +6,13 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-    EntryTests.class,
     ModuleETests.class,
     ModuleFTests.class,
     ModuleGTests.class,
-    ModuleBTests.class,
-    ModuleCTests.class,
-    ModuleDTests.class,
-    ModuleATests.class
+    ModuleBFTests.class,
+    ModuleCFTests.class,
+    ModuleDFGTests.class,
+    ModuleABCDEFGTests.class
 })
 
 public class BottomUpTestSuite {
