@@ -6,6 +6,7 @@ import modules.ModuleF;
 import modules.ModuleG;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,18 +28,6 @@ public class ModuleDTests {
 
     @Before
     public void setUp() {
-        // Reset the test file before each test
-        try (PrintWriter writer = new PrintWriter("test.txt", StandardCharsets.UTF_8)) {
-            writer.println("Jeremy,1234");
-            writer.println("Morris,0623");
-            writer.println("Quinn,3847");
-            writer.println("JJJ,1234");
-            writer.println("Thomas,777222");
-            writer.println("Frank,123456789789");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         testData = new ArrayList<>();
         testData.add(new Entry("Jeremy", "1234"));
         testData.add(new Entry("Morris", "0623"));
@@ -53,6 +42,21 @@ public class ModuleDTests {
         testDataUpdated = "Update,8080\nMorris,0623\nQuinn,3847\nJJJ,1234\nThomas,777222\nFrank,123456789789\n";
 
         testDataDeleted = "Morris,0623\nQuinn,3847\nJJJ,1234\nThomas,777222\nFrank,123456789789\n";
+    }
+
+    @After
+    public void tearDown() {
+        // Reset the test file after each test
+        try (PrintWriter writer = new PrintWriter("test.txt", StandardCharsets.UTF_8)) {
+            writer.println("Jeremy,1234");
+            writer.println("Morris,0623");
+            writer.println("Quinn,3847");
+            writer.println("JJJ,1234");
+            writer.println("Thomas,777222");
+            writer.println("Frank,123456789789");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
