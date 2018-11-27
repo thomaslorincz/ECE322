@@ -135,7 +135,7 @@ public class ModuleA  {
 	}
 	
 	private boolean parseUpdate(int index, String name, String number) {
-		this.data = d.updateData(this.data, index-2, name, number, this.filename);
+		this.data = d.updateData(this.data, index, name, number, this.filename);
 		if(this.data != null)
 			return true;
 		return false;
