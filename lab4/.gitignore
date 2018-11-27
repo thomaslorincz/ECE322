@@ -1,0 +1,8 @@
+.idea/
+output/
+*.png
+*.docx
+*.pdf
+*.pptx
+*.xlsx
+*.zip
