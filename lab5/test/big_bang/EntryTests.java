@@ -1,4 +1,4 @@
-package bottom_up;
+package big_bang;
 
 import data.Entry;
 import org.junit.Test;
