@@ -92,6 +92,10 @@ public class ModuleA  {
 		}
 		
 	}
+
+	public ArrayList<Entry> getData() {
+	    return data;
+    }
 	
 	private boolean parseDelete(int index) {
 		this.data =  d.deleteData(this.data, index, this.filename);
