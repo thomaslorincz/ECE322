@@ -94,7 +94,7 @@ public class ModuleA  {
 	}
 	
 	private boolean parseDelete(int index) {
-		this.data =  d.deleteData(this.data, index-1, this.filename);
+		this.data =  d.deleteData(this.data, index, this.filename);
 		if(this.data != null)
 			return true;
 		return false;
