@@ -87,8 +87,6 @@ public class ModuleDTests {
     @Test
     public void testModuleDInsertData() {
         ModuleD d = new ModuleD(moduleFMock, moduleGMock);
-        d.setF(moduleFMock);
-        d.setG(moduleGMock);
 
         try (PrintStream out = new PrintStream(new FileOutputStream("test.txt"))) {
             out.print(testDataInserted);
@@ -99,7 +97,7 @@ public class ModuleDTests {
 
         d.insertData(testData, "Insert", "100", "test.txt");
         assertEquals(
-            testDataInserted.replaceAll("\\r?\\n|\\r", "\n"),
+            testDataInserted,
             getFileContents("test.txt").replaceAll("\\r?\\n|\\r", "\n")
         );
     }
@@ -110,8 +108,6 @@ public class ModuleDTests {
     @Test
     public void testModuleDUpdateData() {
         ModuleD d = new ModuleD(moduleFMock, moduleGMock);
-        d.setF(moduleFMock);
-        d.setG(moduleGMock);
 
         try (PrintStream out = new PrintStream(new FileOutputStream("test.txt"))) {
             out.print(testDataUpdated);
@@ -122,7 +118,7 @@ public class ModuleDTests {
 
         d.updateData(testData, 0, "Update", "8080", "test.txt");
         assertEquals(
-            testDataUpdated.replaceAll("\\r?\\n|\\r", "\n"),
+            testDataUpdated,
             getFileContents("test.txt").replaceAll("\\r?\\n|\\r", "\n")
         );
     }
@@ -133,8 +129,6 @@ public class ModuleDTests {
     @Test
     public void testModuleDDeleteData() {
         ModuleD d = new ModuleD(moduleFMock, moduleGMock);
-        d.setF(moduleFMock);
-        d.setG(moduleGMock);
 
         try (PrintStream out = new PrintStream(new FileOutputStream("test.txt"))) {
             out.print(testDataDeleted);
@@ -145,7 +139,7 @@ public class ModuleDTests {
 
         d.deleteData(testData, 0, "test.txt");
         assertEquals(
-            testDataDeleted.replaceAll("\\r?\\n|\\r", "\n"),
+            testDataDeleted,
             getFileContents("test.txt").replaceAll("\\r?\\n|\\r", "\n")
         );
     }

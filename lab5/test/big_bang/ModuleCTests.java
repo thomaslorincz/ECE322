@@ -47,7 +47,6 @@ public class ModuleCTests {
     @Test
     public void testModuleC() {
         ModuleC c = new ModuleC(moduleFMock);
-        c.setF(moduleFMock);
         assertEquals(c.sortData(testData).toString(), sortedTestData.toString());
     }
 }

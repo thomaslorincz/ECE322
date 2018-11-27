@@ -47,12 +47,10 @@ public class ModuleBTests {
 
     /**
      * Tests loadFile() in ModuleB. ModuleF is mocked. It's functionality is not tested or required.
-     * Also covers the setF() function in ModuleB.
      */
     @Test
     public void testModuleB() {
         ModuleB b = new ModuleB(moduleFMock);
-        b.setF(moduleFMock);
         assertEquals(testData.toString(), b.loadFile("test.txt").toString());
     }
 
@@ -62,12 +60,11 @@ public class ModuleBTests {
     @Test
     public void testModuleBFileNotFoundException() {
         ModuleB b = new ModuleB(moduleFMock);
-        b.setF(moduleFMock);
         System.setOut(new PrintStream(outContent));
         b.loadFile("nofile.txt");
         String expectedOutput = "File not found!\n";
         assertEquals(
-            expectedOutput.replaceAll("\\r?\\n|\\r", "\n"),
+            expectedOutput,
             outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
         );
     }

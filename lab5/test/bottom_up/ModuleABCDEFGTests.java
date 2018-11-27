@@ -105,7 +105,7 @@ public class ModuleABCDEFGTests {
             "sort\n" +
             "exit\n";
         assertEquals(
-            expectedOutput.replaceAll("\\r?\\n|\\r", "\n"),
+            expectedOutput,
             outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
         );
     }
@@ -115,7 +115,7 @@ public class ModuleABCDEFGTests {
         String[] command = {"load", "test.txt"};
         a.run(command);
         assertEquals(
-            testData.toString().replaceAll("\\r?\\n|\\r", "\n"),
+            testData.toString(),
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
         );
     }
@@ -171,7 +171,7 @@ public class ModuleABCDEFGTests {
         String[] command2 = {"sort"};
         a.run(command2);
         assertEquals(
-            sortedTestData.toString().replaceAll("\\r?\\n|\\r", "\n"),
+            sortedTestData.toString(),
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
         );
     }

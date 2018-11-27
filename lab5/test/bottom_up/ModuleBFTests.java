@@ -3,32 +3,27 @@ package bottom_up;
 import data.Entry;
 import modules.ModuleB;
 import modules.ModuleF;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Mockito.doThrow;
 
 public class ModuleBFTests {
 
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
+    private PrintStream originalOut = System.out;
     private ArrayList<Entry> testData;
-
-    @Mock
-    private ModuleB moduleBMock;
 
     @Before
     public void setUp() {
+        outContent.reset(); // Reset output stream before each test
+
         testData = new ArrayList<>();
         testData.add(new Entry("Jeremy", "1234"));
         testData.add(new Entry("Morris", "0623"));
@@ -38,21 +33,31 @@ public class ModuleBFTests {
         testData.add(new Entry("Frank", "123456789789"));
     }
 
+    @After
+    public void tearDown() {
+        System.setOut(originalOut);
+    }
+
     /**
      *
      */
     @Test
-    public void testModuleBWithModuleF() {
+    public void testModuleB() {
         ModuleF f = new ModuleF();
         ModuleB b = new ModuleB(f);
-        b.setF(f);
         assertEquals(b.loadFile("test.txt").toString(), testData.toString());
     }
 
-    // TODO:
-    @Test(expected = FileNotFoundException.class)
+    @Test
     public void testModuleBFileNotFoundException() {
-        doThrow(FileNotFoundException.class).when(moduleBMock).loadFile("test.txt");
-        moduleBMock.loadFile("test.txt");
+        ModuleF f = new ModuleF();
+        ModuleB b = new ModuleB(f);
+        System.setOut(new PrintStream(outContent));
+        b.loadFile("nofile.txt");
+        String expectedOutput = "File not found!\n";
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 }

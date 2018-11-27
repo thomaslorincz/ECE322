@@ -92,8 +92,7 @@ public class ModuleDFGTests {
         assertEquals(testDataDeleted, getFileContents("test.txt"));
     }
 
-    @NotNull
-    @Contract("_ -> fail")
+    @NotNull @Contract("_ -> fail")
     private String getFileContents(String pathname) {
         File file = new File(pathname);
         byte[] data = new byte[0];
