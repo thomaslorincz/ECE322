@@ -51,6 +51,7 @@ public class ModuleATests {
         testDataDeleted = "[JJJ, 1234, Frank, 123456789789]";
 
         ModuleF f = new ModuleF();
+        f.setOutputStream(new PrintStream(outContent));
         ModuleG g = new ModuleG();
         ModuleB b = new ModuleB(f);
         ModuleC c = new ModuleC(f);
@@ -65,7 +66,10 @@ public class ModuleATests {
         // Reset the test file after each test
         try (PrintWriter writer = new PrintWriter("test.txt", StandardCharsets.UTF_8)) {
             writer.println("Jeremy,1234");
+            writer.println("Morris,0623");
+            writer.println("Quinn,3847");
             writer.println("JJJ,1234");
+            writer.println("Thomas,777222");
             writer.println("Frank,123456789789");
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,6 +119,13 @@ public class ModuleATests {
         assertEquals(
             testData.toString(),
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
+
+        String expectedOutput  = "Current Data:\n1 Jeremy, 1234\n2 JJJ, 1234\n3 Frank, 123456789789\n4 Insert, 100\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
         );
     }
 
@@ -192,6 +203,13 @@ public class ModuleATests {
             sortedTestData.toString(),
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
         );
+
+        String expectedOutput  = "Current Data:\n1 Frank, 123456789789\n2 JJJ, 1234\n3 Jeremy, 1234\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
     /**
@@ -221,6 +239,13 @@ public class ModuleATests {
         assertEquals(
             testDataUpdated,
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
+
+        String expectedOutput  = "Current Data:\n1 Update, 8080\n2 JJJ, 1234\n3 Jeremy, 1234\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
         );
     }
 
@@ -267,6 +292,13 @@ public class ModuleATests {
         assertEquals(
             testDataDeleted,
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
+
+        String expectedOutput  = "Current Data:\n1 JJJ, 1234\n2 Jeremy, 1234\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
         );
     }
 
