@@ -49,7 +49,6 @@ public class ModuleBTests {
     @Test
     public void testModuleB() {
         ModuleB b = new ModuleB(moduleFMock);
-        b.setF(moduleFMock); // Statement coverage
         assertEquals(testData.toString(), b.loadFile("test.txt").toString());
     }
 

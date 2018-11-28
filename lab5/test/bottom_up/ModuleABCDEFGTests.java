@@ -32,28 +32,22 @@ public class ModuleABCDEFGTests {
 
         testData = new ArrayList<>();
         testData.add(new Entry("Jeremy", "1234"));
-        testData.add(new Entry("Morris", "0623"));
-        testData.add(new Entry("Quinn", "3847"));
         testData.add(new Entry("JJJ", "1234"));
-        testData.add(new Entry("Thomas", "777222"));
         testData.add(new Entry("Frank", "123456789789"));
 
         sortedTestData = new ArrayList<>();
         sortedTestData.add(new Entry("Frank", "123456789789"));
         sortedTestData.add(new Entry("JJJ", "1234"));
         sortedTestData.add(new Entry("Jeremy", "1234"));
-        sortedTestData.add(new Entry("Morris", "0623"));
-        sortedTestData.add(new Entry("Quinn", "3847"));
-        sortedTestData.add(new Entry("Thomas", "777222"));
 
-        testDataInserted = "[Jeremy, 1234, Morris, 0623, Quinn, 3847, JJJ, 1234, Thomas, 777222, Frank, 123456789789," +
-            " Insert, 100]";
+        testDataInserted = "[Jeremy, 1234, JJJ, 1234, Frank, 123456789789, Insert, 100]";
 
-        testDataUpdated = "[Update, 8080, Morris, 0623, Quinn, 3847, JJJ, 1234, Thomas, 777222, Frank, 123456789789]";
+        testDataUpdated = "[Update, 8080, JJJ, 1234, Frank, 123456789789]";
 
-        testDataDeleted = "[Morris, 0623, Quinn, 3847, JJJ, 1234, Thomas, 777222, Frank, 123456789789]";
+        testDataDeleted = "[JJJ, 1234, Frank, 123456789789]";
 
         ModuleF f = new ModuleF();
+        f.setOutputStream(new PrintStream(outContent));
         ModuleG g = new ModuleG();
         ModuleB b = new ModuleB(f);
         ModuleC c = new ModuleC(f);
@@ -79,8 +73,8 @@ public class ModuleABCDEFGTests {
     }
 
     /**
+     * ID: 10
      * Tests blank input to ModuleA run() command.
-     * @throws ModuleE.DataBaseExitException when database closes
      */
     @Test
     public void testModuleABlank() throws ModuleE.DataBaseExitException {
@@ -90,8 +84,8 @@ public class ModuleABCDEFGTests {
     }
 
     /**
+     * ID: 11
      * Tests "help" input to ModuleA run() command.
-     * @throws ModuleE.DataBaseExitException when database closes
      */
     @Test
     public void testModuleAHelp() throws ModuleE.DataBaseExitException {
@@ -110,6 +104,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 12
+     * Tests "load" input to ModuleA. Expected to run correctly.
+     */
     @Test
     public void testModuleALoad() throws ModuleE.DataBaseExitException {
         String[] command = {"load", "test.txt"};
@@ -118,8 +116,19 @@ public class ModuleABCDEFGTests {
             testData.toString(),
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
         );
+
+        String expectedOutput  = "Current Data:\n1 Jeremy, 1234\n2 JJJ, 1234\n3 Frank, 123456789789\n4 Insert, 100\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
+    /**
+     * ID: 13
+     * Tests "load" input without a pathname.
+     */
     @Test
     public void testModuleALoadException() throws ModuleE.DataBaseExitException {
         String[] command = {"load"};
@@ -130,6 +139,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 14
+     * Tests "add" input to ModuleA run().
+     */
     @Test
     public void testModuleAAdd() throws ModuleE.DataBaseExitException {
         String[] command1 = {"load", "test.txt"};
@@ -142,6 +155,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 15
+     * Attempts to run "add" with no loaded file.
+     */
     @Test
     public void testModuleAAddNoFile() throws ModuleE.DataBaseExitException {
         String[] command = {"add", "Insert", "100"};
@@ -152,6 +169,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 16
+     * Attempts to run "add" without specifying the new entry data.
+     */
     @Test
     public void testModuleAAddException() throws ModuleE.DataBaseExitException {
         String[] command1 = {"load", "test.txt"};
@@ -164,6 +185,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 17
+     * Tests "sort" input to ModuleA.
+     */
     @Test
     public void testModuleASort() throws ModuleE.DataBaseExitException {
         String[] command1 = {"load", "test.txt"};
@@ -174,8 +199,19 @@ public class ModuleABCDEFGTests {
             sortedTestData.toString(),
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
         );
+
+        String expectedOutput  = "Current Data:\n1 Frank, 123456789789\n2 JJJ, 1234\n3 Jeremy, 1234\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
+    /**
+     * ID: 18
+     * Attempts to run "sort" command with no file loaded.
+     */
     @Test
     public void testModuleASortNoFile() throws ModuleE.DataBaseExitException {
         String[] command = {"sort"};
@@ -186,6 +222,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 19
+     * Tests "update" input to ModuleA.
+     */
     @Test
     public void testModuleAUpdate() throws ModuleE.DataBaseExitException {
         String[] command1 = {"load", "test.txt"};
@@ -196,8 +236,19 @@ public class ModuleABCDEFGTests {
             testDataUpdated,
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
         );
+
+        String expectedOutput  = "Current Data:\n1 Update, 8080\n2 JJJ, 1234\n3 Jeremy, 1234\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
+    /**
+     * ID: 20
+     * Attempts to run "update" command with no loaded file.
+     */
     @Test
     public void testModuleAUpdateNoFile() throws ModuleE.DataBaseExitException {
         String[] command = {"update", "0", "update", "8080"};
@@ -208,6 +259,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 21
+     * Attempts to run "update" without specifying the entry to update.
+     */
     @Test
     public void testModuleAUpdateException() throws ModuleE.DataBaseExitException {
         String[] command1 = {"load", "test.txt"};
@@ -220,6 +275,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 22
+     * Tests "delete" input to ModuleA.
+     */
     @Test
     public void testModuleADelete() throws ModuleE.DataBaseExitException {
         String[] command1 = {"load", "test.txt"};
@@ -230,8 +289,19 @@ public class ModuleABCDEFGTests {
             testDataDeleted,
             a.getData().toString().replaceAll("\\r?\\n|\\r", "\n")
         );
+
+        String expectedOutput  = "Current Data:\n1 JJJ, 1234\n2 Jeremy, 1234\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
+    /**
+     * ID: 23
+     * Attempts to run "delete" command with no loaded file.
+     */
     @Test
     public void testModuleADeleteNoFile() throws ModuleE.DataBaseExitException {
         String[] command = {"delete", "0"};
@@ -242,6 +312,10 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 24
+     * Attempts to run "delete" command without specifying what data to delete.
+     */
     @Test
     public void testModuleADeleteException() throws ModuleE.DataBaseExitException {
         String[] command1 = {"load", "test.txt"};
@@ -254,12 +328,20 @@ public class ModuleABCDEFGTests {
         );
     }
 
+    /**
+     * ID: 25
+     * Tests exiting the database via "exit" command.
+     */
     @Test(expected = ModuleE.DataBaseExitException.class)
     public void testModuleAExit() throws ModuleE.DataBaseExitException {
         String[] command = {"exit"};
         a.run(command);
     }
 
+    /**
+     * ID: 26
+     * Tests inputting an unknown command to ModuleA.
+     */
     @Test
     public void testModuleAUnknown() throws ModuleE.DataBaseExitException {
         String[] command = {"unknown"};

@@ -26,10 +26,7 @@ public class ModuleBFTests {
 
         testData = new ArrayList<>();
         testData.add(new Entry("Jeremy", "1234"));
-        testData.add(new Entry("Morris", "0623"));
-        testData.add(new Entry("Quinn", "3847"));
         testData.add(new Entry("JJJ", "1234"));
-        testData.add(new Entry("Thomas", "777222"));
         testData.add(new Entry("Frank", "123456789789"));
     }
 
@@ -39,15 +36,29 @@ public class ModuleBFTests {
     }
 
     /**
-     *
+     * ID: 4
+     * Tests loadFile() in ModuleB. Tests ModuleF as a dependency to ModuleB.
      */
     @Test
     public void testModuleB() {
         ModuleF f = new ModuleF();
+        f.setOutputStream(new PrintStream(outContent));
         ModuleB b = new ModuleB(f);
-        assertEquals(b.loadFile("test.txt").toString(), testData.toString());
+
+        assertEquals(testData.toString(), b.loadFile("test.txt").toString());
+
+        String expectedOutput  = "Current Data:\n1 Jeremy, 1234\n2 JJJ, 1234\n3 Frank, 123456789789\n";
+
+        assertEquals(
+            expectedOutput,
+            outContent.toString().replaceAll("\\r?\\n|\\r", "\n")
+        );
     }
 
+    /**
+     * ID: 5
+     * Tests ModuleB's ability to catch a FileNotFoundException.
+     */
     @Test
     public void testModuleBFileNotFoundException() {
         ModuleF f = new ModuleF();
