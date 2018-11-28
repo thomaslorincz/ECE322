@@ -33,10 +33,7 @@ public class ModuleBTests {
 
         testData = new ArrayList<>();
         testData.add(new Entry("Jeremy", "1234"));
-        testData.add(new Entry("Morris", "0623"));
-        testData.add(new Entry("Quinn", "3847"));
         testData.add(new Entry("JJJ", "1234"));
-        testData.add(new Entry("Thomas", "777222"));
         testData.add(new Entry("Frank", "123456789789"));
     }
 
@@ -46,15 +43,18 @@ public class ModuleBTests {
     }
 
     /**
-     * Tests loadFile() in ModuleB. ModuleF is mocked. It's functionality is not tested or required.
+     * ID: 1
+     * Tests loadFile() in ModuleB. ModuleF is mocked.
      */
     @Test
     public void testModuleB() {
         ModuleB b = new ModuleB(moduleFMock);
+        b.setF(moduleFMock); // Statement coverage
         assertEquals(testData.toString(), b.loadFile("test.txt").toString());
     }
 
     /**
+     * ID: 2
      * Tests ModuleB's ability to catch a FileNotFoundException.
      */
     @Test

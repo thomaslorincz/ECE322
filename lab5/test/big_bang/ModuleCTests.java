@@ -29,21 +29,19 @@ public class ModuleCTests {
     public void setUp() {
         testData = new ArrayList<>();
         testData.add(new Entry("Jeremy", "1234"));
-        testData.add(new Entry("Morris", "0623"));
-        testData.add(new Entry("Quinn", "3847"));
         testData.add(new Entry("JJJ", "1234"));
-        testData.add(new Entry("Thomas", "777222"));
         testData.add(new Entry("Frank", "123456789789"));
 
         sortedTestData = new ArrayList<>();
         sortedTestData.add(new Entry("Frank", "123456789789"));
         sortedTestData.add(new Entry("JJJ", "1234"));
         sortedTestData.add(new Entry("Jeremy", "1234"));
-        sortedTestData.add(new Entry("Morris", "0623"));
-        sortedTestData.add(new Entry("Quinn", "3847"));
-        sortedTestData.add(new Entry("Thomas", "777222"));
     }
 
+    /**
+     * ID: 3
+     * Tests ModuleC's sorting capabilities.
+     */
     @Test
     public void testModuleC() {
         ModuleC c = new ModuleC(moduleFMock);

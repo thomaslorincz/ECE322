@@ -6,6 +6,7 @@ import org.junit.Test;
 public class ModuleETests {
 
     /**
+     * ID: 7
      * Tests exitProgram() from ModuleE.
      * @throws ModuleE.DataBaseExitException when the database is closed
      */
