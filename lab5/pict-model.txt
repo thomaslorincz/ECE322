@@ -1,0 +1,6 @@
+# PICT Model for Lab 5 - Part 2
+# By: Thomas Lorincz
+
+A: 0, 1, 2
+B: 0, 1, 2
+C: 0, 1, 2
