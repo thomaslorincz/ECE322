@@ -2,3 +2,6 @@
 output/
 *.docx
 *.png
+*.pdf
+*.xlsx
+*.zip
