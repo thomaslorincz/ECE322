@@ -1,3 +1,5 @@
+package lab6.part1;
+
 import java.lang.reflect.Array;
 
 public class ArrayLib {
@@ -101,7 +103,7 @@ public class ArrayLib {
 		E[] removed = array.clone();
 		for(E e : remove){
 			int index = indexOf(array, e);
-			if(index > 0){
+			if(index >= 0){ // Changed from > to >=
 				removed[index] = null;
 			}
 		}
