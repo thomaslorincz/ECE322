@@ -111,7 +111,7 @@ public class Commit {
 	public static double[] arrayNegate(double[] d){
 		double[] result = new double[d.length];
 		for(int i=0; i<d.length; i++){
-			result[i] = -1-d[i];
+			result[i] = 0 - d[i];
 		}
 		return result;
 	}	
@@ -133,7 +133,11 @@ public class Commit {
 	 * @return Cartesian distance
 	 */
 	public static double distance(double[] d1, double[] d2){
-		return 0;
+		double sum = 0.0;
+		for (int i = 0; i < d1.length; i++) {
+			sum += Math.pow(d2[i] - d1[i], 2);
+		}
+		return Math.sqrt(sum);
 	}
 	
 	/**
@@ -150,7 +154,7 @@ public class Commit {
 		for(int i=0; i<d1.length; i++) {
 			result[i] = d1[i]/mean - dev;
 		}
-		return null;
+		return result;
 	}
 
 }
